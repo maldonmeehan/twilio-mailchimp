@@ -1,22 +1,38 @@
-<h1>New Message</h1>
 
-<% if @message.errors.any? %>
-  <p>
-    Something went wrong!
-  </p>
-  <ul>
-    <% @message.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+<div class="row">
+   <div class="col-md-6">
+     <h2>New Message</h2>
+    <% if @message.errors.any? %>
+      <p>
+        Something went wrong!
+      </p>
+      <ul>
+        <% @message.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end%>
+    <%= form_for @message do |f|%>
+      <%= f.label :to %>
+      <% contacts = options_from_collection_for_select(@contacts,'number', 'name') %>
+      <%= f.select :to, contacts, :class => 'form-control', :prompt => '-Select a Contact to Add-' %>
+
+
+      <%= f.label :from %>
+      <%= f.text_field :from, :class=>"form-control"%>
+      <%= f.label :body %>
+      <%= f.text_field :body, :class=>"form-control"%>
+      <%= f.submit :class => "btn btn-default" %>
     <% end %>
-  </ul>
-<% end%>
+  </div>
 
-<%= form_for @message do |f|%>
-  <%= f.label :to %>
-  <%= f.text_field :to, :class=>"form-control" %>
-  <%= f.label :from %>
-  <%= f.text_field :from, :class=>"form-control"%>
-  <%= f.label :body %>
-  <%= f.text_field :body, :class=>"form-control"%>
-  <%= f.submit :class => "btn btn-default" %>
-<% end %>
+  <div class="col-md-6">
+    <%= render 'contacts/form' %>
+    <br>
+    <ul>
+      <% @contacts.each do |contact| %>
+        <li><%= contact.name %> || <%= contact.number %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
