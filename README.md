@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+* sign up with MailChimp and get a
+MAILCHIMP_API_KEY =KEYHERE
+MAILCHIMP_LIST_ID
